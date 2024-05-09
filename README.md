@@ -21,7 +21,6 @@ Open terminal and try execute some kali linux commands
 ## EXECUTION STEPS AND ITS OUTPUT:
 SQL Injection is a sort of infusion assault that makes it conceivable to execute malicious SQL statements. These statements control a database server behind a web application. Assailants can utilize SQL Injection vulnerabilities to sidestep application safety efforts. They can circumvent authentication and authorization of a page or web application and recover the content of the whole SQL database. Identify IP address using ifconfig in Metasploitable2
 ![325657525-5d072558-8cfd-437f-839b-f491e2351bfc](https://github.com/pradeepasri26/sqlinjection/assets/131433142/91d38cf4-7261-4878-9c71-1724992006ed)
-
 Use the above ip address to access the apache webserver of Metasploitable2 from kali linux. In Kali Linux use the ip address in a web browser.
 ![325657622-28300288-17b2-4d70-b1d6-3ee0a018feac](https://github.com/pradeepasri26/sqlinjection/assets/131433142/baea06ec-f598-4e58-8971-9075a635be44)
 Select Multidae from the menu listed as shown above. You will get the page as displayed below:
@@ -33,25 +32,19 @@ Click on the link “Please register here”
 Click on “Create Account” to display the following page
 ![325657969-cb7680e8-8069-4289-88dd-48c982251980](https://github.com/pradeepasri26/sqlinjection/assets/131433142/090badfa-881b-4c42-b4e5-4e0c037aedd1)
 The login structure we will use in our examples is straightforward. It contains two input fields (username and password), which are both vulnerable. The back-end content creates a query to approve the username and secret key given by the client. Here is an outline of the page rationale:
-
 ($query = “SELECT * FROM users WHERE username=’$_POST[username]’ AND password=’$_POST[password]’“;). For the username put “ganesh” or “anything” and for the password put (anything’ or ‘1’=’1) or (admin’ or ‘1’=’1) then try to log in, and you’ll be presented with an admin login page.
-
 ![325658073-de7691c2-6b5c-446e-8c60-f93887b9fcc1](https://github.com/pradeepasri26/sqlinjection/assets/131433142/e9bd9257-5df2-4d1b-9448-d29e0c6a413c)
 Click “Login”. The logged in page will show as below:
 ![325658149-5166ecc3-20f0-4ad6-83d5-ec9406b88479](https://github.com/pradeepasri26/sqlinjection/assets/131433142/a0b9be05-0d47-4e5f-a85e-171803756883)
 Bypassing login field
-
 The username field is vulnerable. Put (ganesh’ #) or (ganesh’--) in the username field and hit “Enter” to log in. We use “#” or “--” to comment everything in the query sentence that comes after the username filed telling the database to disregard the password field: (SELECT * FROM users WHERE username=’admin’ # AND password=’ ‘). By using line commenting, the aggressor eliminates a part of the login condition and gains access. This technique will make the “WHERE” clause true only for one user; in this case, it is “ganesh.”
-
 Now after logging out you will see the login page. In the login page give ganesh’ # . You can see the page now enters into the administrator page as before when giving the password.
-
 ![325658297-a93a6bdb-b7ab-4a94-ba98-dc5b0d0e2ee6](https://github.com/pradeepasri26/sqlinjection/assets/131433142/a4b597c5-733a-4a79-be07-08db50834432)
 Click the login button and you will see it enter into the administrator page.
 ![325658372-b7b5d131-fcc9-4084-8173-4cb7fe583f0b](https://github.com/pradeepasri26/sqlinjection/assets/131433142/c53ed745-89e2-4ea2-bc4f-b99bcff1a7cf)
 
 ## Union-based SQL injection
 UNION-based SQL injection assaults enable the analyzer to extract data from the database effectively. Since the “UNION” operator must be utilized if the two inquiries have precisely the same structure, the attacker must craft a “SELECT” statement like the first inquiry. we will be using the “User Info” page from Mutillidae to perform a Union-Based SQL injection attack. Go to “OWASP Top 10/A1 — Injection/SQLi — Extract-Data/User Info” After logging out, Now choose the menu as shown below
-
 
 ![325659156-c0bbbd4b-b1d1-4f88-b68b-c49962f7c5c6](https://github.com/pradeepasri26/sqlinjection/assets/131433142/ed692090-a94d-4649-91f7-832557d6c24a)
 ![325659228-4a23cbda-e95d-401b-863b-17356523aa32](https://github.com/pradeepasri26/sqlinjection/assets/131433142/f4a9d297-0723-48d3-85ef-29ed77f38824)
